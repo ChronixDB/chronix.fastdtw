@@ -1,0 +1,23 @@
+2016-02-18T17:35:05.099Z, - Loading CSV files
+2016-02-18T17:35:06.176Z, - Done.
+2016-02-18T17:35:06.182Z, - Calculating wrap distance with a search radius of, 1
+2016-02-18T17:35:41.632Z, - Took:, 35.448, seconds.
+2016-02-18T17:35:41.638Z, - Warp Distance:, 79106.02999997968
+2016-02-18T17:35:41.642Z, - Calculating wrap distance with a search radius of, 5
+2016-02-18T17:36:19.271Z, - Took:, 37.629, seconds.
+2016-02-18T17:36:19.271Z, - Warp Distance:, 69642.54999996412
+2016-02-18T17:36:19.271Z, - Calculating wrap distance with a search radius of, 10
+2016-02-18T17:37:02.843Z, - Took:, 43.572, seconds.
+2016-02-18T17:37:02.844Z, - Warp Distance:, 62786.65999995535
+2016-02-18T17:37:02.844Z, - Calculating wrap distance with a search radius of, 15
+2016-02-18T17:37:44.401Z, - Took:, 41.557, seconds.
+2016-02-18T17:37:44.402Z, - Warp Distance:, 61584.96999994975
+2016-02-18T17:37:44.402Z, - Calculating wrap distance with a search radius of, 20
+2016-02-18T17:38:24.705Z, - Took:, 40.303, seconds.
+2016-02-18T17:38:24.705Z, - Warp Distance:, 61644.99999994942
+2016-02-18T17:38:24.705Z, - Calculating wrap distance with a search radius of, 25
+2016-02-18T17:39:04.502Z, - Took:, 39.797, seconds.
+2016-02-18T17:39:04.502Z, - Warp Distance:, 60684.239999951926
+2016-02-18T17:39:04.502Z, - Calculating wrap distance with a search radius of, 30
+2016-02-18T17:39:45.099Z, - Took:, 40.597, seconds.
+2016-02-18T17:39:45.099Z, - Warp Distance:, 59660.479999950316
