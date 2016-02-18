@@ -5,7 +5,8 @@ This implementation is 34 times faster than the provider implementation at [Goog
 ## Results
 Chronix-Optimization:
 [Results](https://github.com/ChronixDB/chronix.fastdtw/blob/master/results/chronix-optimization.csv)
-Initail Code:
+
+Initial Code:
 [Results](https://github.com/ChronixDB/chronix.fastdtw/blob/master/results/source-runtime.csv)
 
 # Authors:
