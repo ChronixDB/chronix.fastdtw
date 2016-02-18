@@ -1,4 +1,4 @@
-Date,Action,Time (Seconds)
+Date,Action,Search Radius / Time (Seconds) / Warp Distance
 2016-02-18T17:35:06.182Z, Calculating wrap distance with a search radius of:, 1
 2016-02-18T17:35:41.632Z, Took:, 35.448
 2016-02-18T17:35:41.638Z, Warp Distance:, 79106.02999997968
