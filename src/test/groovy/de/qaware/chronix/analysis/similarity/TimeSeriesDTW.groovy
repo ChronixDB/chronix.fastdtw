@@ -48,13 +48,13 @@ class TimeSeriesDTW extends Specification {
         def firstLine = true;
         inputStream.eachLine() {
             if (!firstLine) {
-                def columns = it.split(";")
+                def columns = it.split(",")
                 if (columns.length == 2 && column == 1) {
-                    def point = new TimeSeriesPoint([columns[column].replaceAll(",", "") as double])
+                    def point = new TimeSeriesPoint([columns[column] as double])
                     timeSeries.addLast(index, point)
                     index++;
                 } else if (columns.length == 3 && column == 2) {
-                    def point = new TimeSeriesPoint([columns[column].replaceAll(",", "") as double])
+                    def point = new TimeSeriesPoint([columns[column] as double])
                     timeSeries.addLast(index, point)
                     index++;
                 }

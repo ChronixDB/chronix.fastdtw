@@ -1,21 +1,22 @@
-2016-02-18T17:23:17.236Z, - Calculating wrap distance with a search radius of, 1,
-2016-02-18T17:23:17.932Z, - Took:, 0.694 ,seconds.
-2016-02-18T17:23:17.938Z, - Warp Distance:, 79106.02999997968,
-2016-02-18T17:23:17.944Z, - Calculating wrap distance with a search radius of, 5,
-2016-02-18T17:23:18.663Z, - Took:, 0.719 ,seconds.
-2016-02-18T17:23:18.664Z, - Warp Distance:, 69642.54999996412,
-2016-02-18T17:23:18.664Z, - Calculating wrap distance with a search radius of, 10,
-2016-02-18T17:23:19.507Z, - Took:, 0.843 ,seconds.
-2016-02-18T17:23:19.507Z, - Warp Distance:, 62786.65999995535,
-2016-02-18T17:23:19.508Z, - Calculating wrap distance with a search radius of, 15,
-2016-02-18T17:23:20.536Z, - Took:, 1.028 ,seconds.
-2016-02-18T17:23:20.537Z, - Warp Distance:, 61584.96999994975,
-2016-02-18T17:23:20.537Z, - Calculating wrap distance with a search radius of, 20,
-2016-02-18T17:23:21.676Z, - Took:, 1.139 ,seconds.
-2016-02-18T17:23:21.676Z, - Warp Distance:, 61644.99999994942,
-2016-02-18T17:23:21.676Z, - Calculating wrap distance with a search radius of, 25,
-2016-02-18T17:23:23.014Z, - Took:, 1.338 ,seconds.
-2016-02-18T17:23:23.014Z, - Warp Distance:, 60684.239999951926,
-2016-02-18T17:23:23.014Z, - Calculating wrap distance with a search radius of, 30,
-2016-02-18T17:23:24.581Z, - Took:, 1.567 ,seconds.
-2016-02-18T17:23:24.582Z, - Warp Distance:, 59660.479999950316,
+Date,Action,Time (Seconds)
+2016-02-18T17:23:17.236Z, Calculating wrap distance with a search radius of:, 1
+2016-02-18T17:23:17.932Z, Took:, 0.694
+2016-02-18T17:23:17.938Z, Warp Distance:, 79106.02999997968
+2016-02-18T17:23:17.944Z, Calculating wrap distance with a search radius of:, 5
+2016-02-18T17:23:18.663Z, Took:, 0.719
+2016-02-18T17:23:18.664Z, Warp Distance:, 69642.54999996412
+2016-02-18T17:23:18.664Z, Calculating wrap distance with a search radius of:, 10
+2016-02-18T17:23:19.507Z, Took:, 0.843
+2016-02-18T17:23:19.507Z, Warp Distance:, 62786.65999995535
+2016-02-18T17:23:19.508Z, Calculating wrap distance with a search radius of:, 15
+2016-02-18T17:23:20.536Z, Took:, 1.028
+2016-02-18T17:23:20.537Z, Warp Distance:, 61584.96999994975
+2016-02-18T17:23:20.537Z, Calculating wrap distance with a search radius of:, 20
+2016-02-18T17:23:21.676Z, Took:, 1.139
+2016-02-18T17:23:21.676Z, Warp Distance:, 61644.99999994942
+2016-02-18T17:23:21.676Z, Calculating wrap distance with a search radius of:, 25
+2016-02-18T17:23:23.014Z, Took:, 1.338
+2016-02-18T17:23:23.014Z, Warp Distance:, 60684.239999951926
+2016-02-18T17:23:23.014Z, Calculating wrap distance with a search radius of:, 30
+2016-02-18T17:23:24.581Z, Took:, 1.567
+2016-02-18T17:23:24.582Z, Warp Distance:, 59660.479999950316
