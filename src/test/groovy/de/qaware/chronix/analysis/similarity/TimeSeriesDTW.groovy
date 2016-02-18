@@ -13,7 +13,7 @@ import spock.lang.Unroll
 class TimeSeriesDTW extends Specification {
 
     @Unroll
-    def "test warp path of two time series: search radius: #searchRadius, faster than:#maxTime"() {
+    def "test warp path of two time series: search radius: #searchRadius, faster than: #maxTime ms."() {
         given:
         println("Waiting for input.")
         //System.in.read()
