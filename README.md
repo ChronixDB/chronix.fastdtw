@@ -8,7 +8,7 @@ This implementation is 34 times faster than the provided implementation at [Goog
 ### Initial Code:
 [Results](https://github.com/ChronixDB/chronix.fastdtw/blob/master/results/source-runtime.csv)
 ### Test-Dataset:
-3 months of CPU load.
+2 months of CPU load.
 [Dataset](https://github.com/ChronixDB/chronix.fastdtw/blob/master/src/test/resources/CPU-Load.csv)
 ### Authors:
 This work is initially started by:
