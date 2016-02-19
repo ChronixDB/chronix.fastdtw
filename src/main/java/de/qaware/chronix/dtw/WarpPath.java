@@ -14,11 +14,9 @@ import de.qaware.chronix.matrix.ColMajorCell;
 import java.util.NoSuchElementException;
 
 public class WarpPath {
-    // DATA
     private IntList tsIindexes;   // ArrayList of Integer
     private IntList tsJindexes;   // ArrayList of Integer
 
-    // CONSTRUCTORS
     public WarpPath() {
         tsIindexes = new IntList();
         tsJindexes = new IntList();
@@ -31,11 +29,9 @@ public class WarpPath {
     }
 
 
-    // FUNCTIONS
     public int size() {
         return tsIindexes.size();
     }
-
 
     public int minI() {
         return tsIindexes.get(tsIindexes.size() - 1);
@@ -55,35 +51,10 @@ public class WarpPath {
         return tsJindexes.get(0);
     }
 
-
-    boolean shouldBeInverted = false;
-
     public void addFirst(int i, int j) {
-        //We have to revert the index. That saves time.
-        //tsIindexes.add(0,i);
-        //tsJindexes.add(0,i);
         tsIindexes.add(i);
         tsJindexes.add(j);
-        shouldBeInverted = true;
     }
-
-
-    private void revert() {
-       if (shouldBeInverted) {
-           IntList revertedI = new IntList(tsIindexes.size());
-           IntList revertedJ = new IntList(tsJindexes.size());
-
-           for (int i = tsIindexes.size() - 1; i >= 0; i--) {
-               revertedI.add(tsIindexes.get(i));
-               revertedJ.add(tsJindexes.get(i));
-           }
-
-           tsIindexes = revertedI;
-           tsJindexes = revertedJ;
-           shouldBeInverted = false;
-       }
-    }
-
 
     public void addLast(int i, int j) {
         tsIindexes.add(0, i);
@@ -132,7 +103,7 @@ public class WarpPath {
             tsIindexes.set(x, tsJindexes.get(x));
             tsJindexes.set(x, temp);
         }
-    }  // end invert()
+    }
 
 
     public ColMajorCell get(int index) {
@@ -153,7 +124,7 @@ public class WarpPath {
         outStr.append("]");
 
         return outStr.toString();
-    }  // end toString()
+    }
 
 
     public boolean equals(Object obj) {
@@ -172,11 +143,11 @@ public class WarpPath {
                 return false;
         } else
             return false;
-    }  // end equals
+    }
 
 
     public int hashCode() {
         return tsIindexes.hashCode() * tsJindexes.hashCode();
     }
 
-}  // end class WarpPath
+}

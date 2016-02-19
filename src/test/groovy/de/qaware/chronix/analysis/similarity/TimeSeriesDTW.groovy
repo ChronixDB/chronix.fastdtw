@@ -3,25 +3,22 @@ package de.qaware.chronix.analysis.similarity
 import de.qaware.chronix.dtw.FastDTW
 import de.qaware.chronix.timeseries.TimeSeries
 import de.qaware.chronix.timeseries.TimeSeriesPoint
-import de.qaware.chronix.util.DistanceFunctionFactory
+import de.qaware.chronix.distance.DistanceFunctionFactory
 import spock.lang.Specification
 import spock.lang.Unroll
 
 /**
- * Created by f.lautenschlager on 18.02.2016.
+ * Unit test to the FastDTW implementation
+ * @author f.lautenschlager
  */
 class TimeSeriesDTW extends Specification {
 
     @Unroll
     def "test warp path of two time series: search radius: #searchRadius, faster than: #maxTime ms."() {
         given:
-        println("Waiting for input.")
-        //System.in.read()
-
         def distFn = DistanceFunctionFactory.getDistFnByName("EuclideanDistance")
         def tsI = fillTimeSeries("CPU-Load.csv", 1)
         def tsJ = fillTimeSeries("CPU-Load.csv", 2)
-
 
         when:
         def start = System.currentTimeMillis();
@@ -32,6 +29,8 @@ class TimeSeriesDTW extends Specification {
         info.getDistance() == distance
         info.getPath().size()
         (end - start) < maxTime
+
+        println "$searchRadius took: ${end - start}"
 
         where:
         searchRadius << [1, 5, 10, 15, 20, 25, 30]
@@ -50,12 +49,12 @@ class TimeSeriesDTW extends Specification {
             if (!firstLine) {
                 def columns = it.split(",")
                 if (columns.length == 2 && column == 1) {
-                    def point = new TimeSeriesPoint([columns[column] as double])
-                    timeSeries.addLast(index, point)
+                    def point = new TimeSeriesPoint([columns[column] as double] as double[])
+                    timeSeries.add(index, point)
                     index++;
                 } else if (columns.length == 3 && column == 2) {
-                    def point = new TimeSeriesPoint([columns[column] as double])
-                    timeSeries.addLast(index, point)
+                    def point = new TimeSeriesPoint([columns[column] as double] as double[])
+                    timeSeries.add(index, point)
                     index++;
                 }
             } else {

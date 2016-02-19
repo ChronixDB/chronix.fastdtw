@@ -15,5 +15,4 @@ interface CostMatrix
    double get(int col, int row);
 
    int size();
-
 }

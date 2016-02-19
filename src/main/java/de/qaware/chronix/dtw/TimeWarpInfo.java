@@ -9,17 +9,14 @@ package de.qaware.chronix.dtw;
 
 
 public class TimeWarpInfo {
-    // PRIVATE DATA
     private final double distance;
     private final WarpPath path;
 
 
-    // CONSTRUCTOR
-    TimeWarpInfo(double dist, WarpPath wp) {
+    public TimeWarpInfo(double dist, WarpPath wp) {
         distance = dist;
         path = wp;
     }
-
 
     public double getDistance() {
         return distance;
