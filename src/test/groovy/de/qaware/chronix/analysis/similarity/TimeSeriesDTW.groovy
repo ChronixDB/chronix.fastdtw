@@ -36,7 +36,7 @@ class TimeSeriesDTW extends Specification {
         searchRadius << [1, 5, 10, 15, 20, 25, 30]
         //That are the result of the default implementation
         distance << [79106.02999997968d, 69642.54999996412d, 62786.65999995535d, 61584.96999994975d, 61644.99999994942d, 60684.239999951926d, 59660.479999950316d]
-        maxTime << [1000, 1000, 1000, 2000, 2000, 2000, 2500]
+        maxTime << [2000, 2000, 2000, 3000, 3000, 3000, 4000]
     }
 
 
