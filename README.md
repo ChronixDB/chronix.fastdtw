@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ChronixDB/chronix.fastdtw.png?label=ready&title=Ready)](https://waffle.io/ChronixDB/chronix.fastdtw)
 [![Build Status](https://travis-ci.org/ChronixDB/chronix.fastdtw.svg?branch=master)](https://travis-ci.org/ChronixDB/chronix.fastdtw)
 # Chronix FastDTW - Dynamic Time Warping (DTW) with a linear time and memory complexity 
 
