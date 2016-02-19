@@ -23,6 +23,7 @@
  */
 package de.qaware.chronix
 
+import de.qaware.chronix.distance.DistanceFunctionEnum
 import de.qaware.chronix.distance.DistanceFunctionFactory
 import de.qaware.chronix.dtw.FastDTW
 import de.qaware.chronix.timeseries.MultivariateTimeSeries
@@ -37,7 +38,7 @@ class FastDTWIntegrationTest extends Specification {
     @Unroll
     def "test warp path of two time series: search radius: #searchRadius, faster than: #maxTime ms."() {
         given:
-        def distFn = DistanceFunctionFactory.getDistFnByName("EuclideanDistance")
+        def distFn = DistanceFunctionFactory.getDistanceFunction(DistanceFunctionEnum.EUCLIDEAN)
         def tsI = fillTimeSeries("CPU-Load.csv", 1)
         def tsJ = fillTimeSeries("CPU-Load.csv", 2)
 

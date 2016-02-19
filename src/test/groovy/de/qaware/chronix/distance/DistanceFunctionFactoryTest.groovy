@@ -21,32 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package de.qaware.chronix.distance;
+package de.qaware.chronix.distance
+
+import spock.lang.Specification
 
 /**
- * @author Stan Salvador (stansalvador@hotmail.com)
+ * Unit test for the distance function factory
  * @author f.lautenschlager
  */
-public final class DistanceFunctionFactory {
+class DistanceFunctionFactoryTest extends Specification {
+    def "test getDistanceFunction"() {
+        when:
+        def impl = DistanceFunctionFactory.getDistanceFunction(distanceFunction)
 
-    private static DistanceFunction EUCLIDEAN_DIST_FN = new EuclideanDistance();
-    private static DistanceFunction MANHATTAN_DIST_FN = new ManhattanDistance();
-    private static DistanceFunction BINARY_DIST_FN = new BinaryDistance();
+        then:
+        impl.class == clazz
 
-    private DistanceFunctionFactory() {
-        //Avoid instances
-    }
-
-    public static DistanceFunction getDistanceFunction(DistanceFunctionEnum function) {
-        switch (function) {
-            case EUCLIDEAN:
-                return EUCLIDEAN_DIST_FN;
-            case MANHATTEN:
-                return MANHATTAN_DIST_FN;
-            case BINARY:
-                return BINARY_DIST_FN;
-            default:
-                throw new IllegalArgumentException("There is no DistanceFunction for the name " + function);
-        }
+        where:
+        distanceFunction << [DistanceFunctionEnum.BINARY, DistanceFunctionEnum.EUCLIDEAN, DistanceFunctionEnum.MANHATTEN]
+        clazz << [BinaryDistance.class, EuclideanDistance.class, ManhattanDistance.class]
     }
 }

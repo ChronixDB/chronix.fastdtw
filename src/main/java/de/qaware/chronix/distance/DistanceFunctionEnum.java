@@ -24,29 +24,13 @@
 package de.qaware.chronix.distance;
 
 /**
- * @author Stan Salvador (stansalvador@hotmail.com)
+ * Enum holding the available distance functions
+ *
  * @author f.lautenschlager
  */
-public final class DistanceFunctionFactory {
+public enum DistanceFunctionEnum {
 
-    private static DistanceFunction EUCLIDEAN_DIST_FN = new EuclideanDistance();
-    private static DistanceFunction MANHATTAN_DIST_FN = new ManhattanDistance();
-    private static DistanceFunction BINARY_DIST_FN = new BinaryDistance();
-
-    private DistanceFunctionFactory() {
-        //Avoid instances
-    }
-
-    public static DistanceFunction getDistanceFunction(DistanceFunctionEnum function) {
-        switch (function) {
-            case EUCLIDEAN:
-                return EUCLIDEAN_DIST_FN;
-            case MANHATTEN:
-                return MANHATTAN_DIST_FN;
-            case BINARY:
-                return BINARY_DIST_FN;
-            default:
-                throw new IllegalArgumentException("There is no DistanceFunction for the name " + function);
-        }
-    }
+    BINARY,
+    MANHATTEN,
+    EUCLIDEAN
 }
