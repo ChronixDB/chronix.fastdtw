@@ -8,4 +8,4 @@ before_install:
 
 script: ./gradlew build jacocoTestReport
 
-after_success: ./gradlew jacocoRootReport coveralls
+after_success: ./gradlew jacocoTestReport coveralls
