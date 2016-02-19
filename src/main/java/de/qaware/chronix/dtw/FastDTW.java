@@ -1,17 +1,37 @@
 /*
- * FastDTW.java   Jul 14, 2004
+ * The MIT License (MIT)
  *
- * Copyright (c) 2004 Stan Salvador
- * stansalvador@hotmail.com
+ * Copyright (c) 2016 QAware GmbH
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-
 package de.qaware.chronix.dtw;
 
 
-import de.qaware.chronix.timeseries.PAA;
-import de.qaware.chronix.timeseries.TimeSeries;
 import de.qaware.chronix.distance.DistanceFunction;
+import de.qaware.chronix.timeseries.MultivariateTimeSeries;
+import de.qaware.chronix.timeseries.PAA;
 
+/**
+ * @author Stan Salvador (stansalvador@hotmail.com)
+ * @author f.lautenschlager
+ */
 public final class FastDTW {
 
     final static int DEFAULT_SEARCH_RADIUS = 1;
@@ -20,32 +40,32 @@ public final class FastDTW {
         //avoid instances
     }
 
-    public static double getWarpDistBetween(final TimeSeries tsI, final TimeSeries tsJ, final DistanceFunction distFn) {
+    public static double getWarpDistBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, final DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn).getDistance();
     }
 
 
-    public static double getWarpDistBetween(final TimeSeries tsI, final TimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
+    public static double getWarpDistBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, searchRadius, distFn).getDistance();
     }
 
 
-    public static WarpPath getWarpPathBetween(final TimeSeries tsI, final TimeSeries tsJ, final DistanceFunction distFn) {
+    public static WarpPath getWarpPathBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, final DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn).getPath();
     }
 
 
-    public static WarpPath getWarpPathBetween(final TimeSeries tsI, final TimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
+    public static WarpPath getWarpPathBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, searchRadius, distFn).getPath();
     }
 
 
-    public static TimeWarpInfo getWarpInfoBetween(final TimeSeries tsI, final TimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
+    public static TimeWarpInfo getWarpInfoBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, searchRadius, distFn);
     }
 
 
-    private static TimeWarpInfo fastDTW(final TimeSeries tsI, final TimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
+    private static TimeWarpInfo fastDTW(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
         if (searchRadius < 0)
             searchRadius = 0;
 

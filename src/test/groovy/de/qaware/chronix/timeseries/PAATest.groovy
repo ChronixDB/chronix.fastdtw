@@ -21,22 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package de.qaware.chronix.distance;
+package de.qaware.chronix.timeseries
 
-
-import java.util.Arrays;
+import spock.lang.Specification
 
 /**
- * @author Stan Salvador (stansalvador@hotmail.com)
+ * Unit test for the PAA class
  * @author f.lautenschlager
  */
-public final class BinaryDistance implements DistanceFunction {
-    public double calcDistance(double[] vector1, double[] vector2) {
-        if (Arrays.equals(vector1, vector2)) {
-            return 0.0;
-        } else {
-            return 1.0;
-        }
-    }
+class PAATest extends Specification {
 
+    def "test convert multivariate time series to paa representation"() {
+        given:
+        def originalTimeSeries = new MultivariateTimeSeries(1);
+        originalTimeSeries.add(1, [1d] as double[])
+        originalTimeSeries.add(2, [2d] as double[])
+        originalTimeSeries.add(3, [3d] as double[])
+        originalTimeSeries.add(4, [4d] as double[])
+
+        when:
+        def paa = new PAA(originalTimeSeries, 2)
+
+        then:
+        paa.size() == 2
+        paa.originalSize() == 4
+        paa.aggregatePtSize(1) == 2
+    }
 }

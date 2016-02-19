@@ -1,27 +1,46 @@
 /*
- * DTW.java   Jul 14, 2004
+ * The MIT License (MIT)
  *
- * Copyright (c) 2004 Stan Salvador
- * stansalvador@hotmail.com
+ * Copyright (c) 2016 QAware GmbH
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-
 package de.qaware.chronix.dtw;
 
 
-import de.qaware.chronix.matrix.ColMajorCell;
-import de.qaware.chronix.timeseries.TimeSeries;
 import de.qaware.chronix.distance.DistanceFunction;
+import de.qaware.chronix.matrix.ColMajorCell;
+import de.qaware.chronix.timeseries.MultivariateTimeSeries;
 
 import java.util.Iterator;
 
-
+/**
+ * @author Stan Salvador (stansalvador@hotmail.com)
+ * @author f.lautenschlager
+ */
 public final class DTW {
 
     private DTW() {
         //avoid instances
     }
 
-    public static double calcWarpCost(WarpPath path, TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
+    public static double calcWarpCost(WarpPath path, MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, DistanceFunction distFn) {
         double totalCost = 0.0;
 
         for (int p = 0; p < path.size(); p++) {
@@ -34,7 +53,7 @@ public final class DTW {
 
     // Dynamic Time Warping where the warp path is not needed, an alternate implementation can be used that does not
     //    require the entire cost matrix to be filled and only needs 2 columns to be stored at any one time.
-    public static double getWarpDistBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
+    public static double getWarpDistBetween(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, DistanceFunction distFn) {
         // The space complexity is 2*tsJ.size().  Dynamic time warping is symmetric so switching the two time series
         //    parameters does not effect the final warp cost but can reduce the space complexity by allowing tsJ to
         //    be set as the shorter time series and only requiring 2 columns of size |tsJ| rather than 2 larger columns of
@@ -77,17 +96,17 @@ public final class DTW {
     }
 
 
-    public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
+    public static WarpPath getWarpPathBetween(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, DistanceFunction distFn) {
         return dynamicTimeWarp(tsI, tsJ, distFn).getPath();
     }
 
 
-    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
+    public static TimeWarpInfo getWarpInfoBetween(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, DistanceFunction distFn) {
         return dynamicTimeWarp(tsI, tsJ, distFn);
     }
 
 
-    private static TimeWarpInfo dynamicTimeWarp(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
+    private static TimeWarpInfo dynamicTimeWarp(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, DistanceFunction distFn) {
         //     COST MATRIX:
         //   5|_|_|_|_|_|_|E| E = min Global Cost
         //   4|_|_|_|_|_|_|_| S = Start point
@@ -104,18 +123,15 @@ public final class DTW {
         final int maxJ = tsJ.size() - 1;
 
         // Calculate the values for the first column, from the bottom up.
-        costMatrix[0][0] = distFn.calcDistance(tsI.getMeasurementVector(0),
-                tsJ.getMeasurementVector(0));
+        costMatrix[0][0] = distFn.calcDistance(tsI.getMeasurementVector(0), tsJ.getMeasurementVector(0));
         for (int j = 1; j <= maxJ; j++)
-            costMatrix[0][j] = costMatrix[0][j - 1] + distFn.calcDistance(tsI.getMeasurementVector(0),
-                    tsJ.getMeasurementVector(j));
+            costMatrix[0][j] = costMatrix[0][j - 1] + distFn.calcDistance(tsI.getMeasurementVector(0), tsJ.getMeasurementVector(j));
 
         for (int i = 1; i <= maxI; i++)   // i = columns
         {
             // Calculate the value for the bottom row of the current column
             //    (i,0) = LocalCost(i,0) + GlobalCost(i-1,0)
-            costMatrix[i][0] = costMatrix[i - 1][0] + distFn.calcDistance(tsI.getMeasurementVector(i),
-                    tsJ.getMeasurementVector(0));
+            costMatrix[i][0] = costMatrix[i - 1][0] + distFn.calcDistance(tsI.getMeasurementVector(i), tsJ.getMeasurementVector(0));
 
             for (int j = 1; j <= maxJ; j++)  // j = rows
             {
@@ -123,8 +139,7 @@ public final class DTW {
                 final double minGlobalCost = Math.min(costMatrix[i - 1][j],
                         Math.min(costMatrix[i - 1][j - 1],
                                 costMatrix[i][j - 1]));
-                costMatrix[i][j] = minGlobalCost + distFn.calcDistance(tsI.getMeasurementVector(i),
-                        tsJ.getMeasurementVector(j));
+                costMatrix[i][j] = minGlobalCost + distFn.calcDistance(tsI.getMeasurementVector(i), tsJ.getMeasurementVector(j));
             }
         }
 
@@ -186,7 +201,7 @@ public final class DTW {
     }
 
 
-    public static double getWarpDistBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
+    public static double getWarpDistBetween(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
         //     COST MATRIX:
         //   5|_|_|_|_|_|_|E| E = min Global Cost
         //   4|_|_|_|_|_|_|_| S = Start point
@@ -211,7 +226,7 @@ public final class DTW {
 
     }
 
-    private static void calcCostMatrix(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn, CostMatrix costMatrix, Iterator<ColMajorCell> matrixIterator) {
+    private static void calcCostMatrix(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, DistanceFunction distFn, CostMatrix costMatrix, Iterator<ColMajorCell> matrixIterator) {
         while (matrixIterator.hasNext()) {
             final ColMajorCell currentCell = matrixIterator.next();  // current cell being filled
             final int i = currentCell.getCol();
@@ -234,17 +249,17 @@ public final class DTW {
     }
 
 
-    public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
+    public static WarpPath getWarpPathBetween(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
         return constrainedTimeWarp(tsI, tsJ, window, distFn).getPath();
     }
 
 
-    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
+    public static TimeWarpInfo getWarpInfoBetween(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
         return constrainedTimeWarp(tsI, tsJ, window, distFn);
     }
 
 
-    private static TimeWarpInfo constrainedTimeWarp(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
+    private static TimeWarpInfo constrainedTimeWarp(MultivariateTimeSeries tsI, MultivariateTimeSeries tsJ, SearchWindow window, DistanceFunction distFn) {
         //     COST MATRIX:
         //   5|_|_|_|_|_|_|E| E = min Global Cost
         //   4|_|_|_|_|_|_|_| S = Start point
