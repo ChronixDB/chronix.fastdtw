@@ -3,7 +3,7 @@
 [![Stories in Ready](https://badge.waffle.io/ChronixDB/chronix.fastdtw.png?label=ready&title=Ready)](https://waffle.io/ChronixDB/chronix.fastdtw)
 # Chronix FastDTW - Dynamic Time Warping (DTW) with a linear time and memory complexity 
 An implementation of the Fast DTW algorithm used in Chronix.
-This implementation is 34 times faster than the provided implementation at [Google Code](http://code.google.com/p/fastdtw/).
+This implementation is 40 times faster than the provided implementation at [Google Code](http://code.google.com/p/fastdtw/).
 
 ## Performance comparision
 This implemenation includes some performance optimizations.
