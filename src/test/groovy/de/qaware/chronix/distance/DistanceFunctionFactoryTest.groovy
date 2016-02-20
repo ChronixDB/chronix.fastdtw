@@ -38,7 +38,7 @@ class DistanceFunctionFactoryTest extends Specification {
         impl.class == clazz
 
         where:
-        distanceFunction << [DistanceFunctionEnum.BINARY, DistanceFunctionEnum.EUCLIDEAN, DistanceFunctionEnum.MANHATTEN]
+        distanceFunction << [DistanceFunctionEnum.BINARY, DistanceFunctionEnum.EUCLIDEAN, DistanceFunctionEnum.MANHATTAN]
         clazz << [BinaryDistance.class, EuclideanDistance.class, ManhattanDistance.class]
     }
 }

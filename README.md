@@ -1,12 +1,13 @@
 [![Build Status](https://travis-ci.org/ChronixDB/chronix.fastdtw.svg?branch=master)](https://travis-ci.org/ChronixDB/chronix.fastdtw)
 [![Coverage Status](https://coveralls.io/repos/github/ChronixDB/chronix.fastdtw/badge.svg?branch=master)](https://coveralls.io/github/ChronixDB/chronix.fastdtw?branch=master)
 [![Stories in Ready](https://badge.waffle.io/ChronixDB/chronix.fastdtw.png?label=ready&title=Ready)](https://waffle.io/ChronixDB/chronix.fastdtw)
+[![Download](https://api.bintray.com/packages/chronix/maven/chronix-fastdtw/images/download.svg) ](https://bintray.com/chronix/maven/chronix-fastdtw/_latestVersion)
 # Chronix FastDTW - Dynamic Time Warping (DTW) with a linear time and memory complexity 
 An implementation of the Fast DTW algorithm used in Chronix.
 This implementation is 40 times faster than the provided implementation at [Google Code](http://code.google.com/p/fastdtw/).
 
-## Performance comparision
-This implemenation includes some performance optimizations.
+## Performance comparison
+This implementation includes some performance optimizations.
 The following results show the benefits.
  
 ### Test-Dataset:
@@ -17,7 +18,7 @@ The following results show the benefits.
 - Chronix [Results](https://github.com/ChronixDB/chronix.fastdtw/blob/master/results/chronix-optimization.csv)
 - Original [Results](https://github.com/ChronixDB/chronix.fastdtw/blob/master/results/source-runtime.csv)
 
-### Comparision
+### Comparison
 Times are in milliseconds.
 
 | Search Radius|Original|Chronix|

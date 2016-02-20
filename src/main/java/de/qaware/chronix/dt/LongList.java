@@ -33,26 +33,26 @@ import static de.qaware.chronix.dt.ListUtil.*;
 
 
 /**
- * Implementation of a list with primitive ints.
+ * Implementation of a list with primitive longs.
  *
  * @author f.lautenschlager
  */
-public class IntList {
+public class LongList {
 
     /**
      * Shared empty array instance used for empty instances.
      */
-    private static final int[] EMPTY_ELEMENT_DATA = {};
+    private static final long[] EMPTY_ELEMENT_DATA = {};
 
     /**
      * Shared empty array instance used for default sized empty instances. We
      * distinguish this from EMPTY_ELEMENT_DATA to know how much to inflate when
      * first element is added.
      */
-    private static final int[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
+    private static final long[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
 
-    private int[] ints;
+    private long[] longs;
     private int size;
 
     /**
@@ -62,11 +62,11 @@ public class IntList {
      * @throws IllegalArgumentException if the specified initial capacity
      *                                  is negative
      */
-    public IntList(int initialCapacity) {
+    public LongList(int initialCapacity) {
         if (initialCapacity > 0) {
-            this.ints = new int[initialCapacity];
+            this.longs = new long[initialCapacity];
         } else if (initialCapacity == 0) {
-            this.ints = EMPTY_ELEMENT_DATA;
+            this.longs = EMPTY_ELEMENT_DATA;
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
         }
@@ -75,8 +75,8 @@ public class IntList {
     /**
      * Constructs an empty list with an initial capacity of ten.
      */
-    public IntList() {
-        this.ints = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+    public LongList() {
+        this.longs = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
     }
 
 
@@ -124,7 +124,7 @@ public class IntList {
     public int indexOf(long o) {
 
         for (int i = 0; i < size; i++) {
-            if (o == ints[i]) {
+            if (o == longs[i]) {
                 return i;
             }
         }
@@ -144,7 +144,7 @@ public class IntList {
     public int lastIndexOf(long o) {
 
         for (int i = size - 1; i >= 0; i--) {
-            if (o == ints[i]) {
+            if (o == longs[i]) {
                 return i;
             }
         }
@@ -157,9 +157,9 @@ public class IntList {
      *
      * @return a clone of this <tt>LongList</tt> instance
      */
-    public IntList copy() {
-        IntList v = new IntList(size);
-        v.ints = Arrays.copyOf(ints, size);
+    public LongList copy() {
+        LongList v = new LongList(size);
+        v.longs = Arrays.copyOf(longs, size);
         v.size = size;
         return v;
     }
@@ -178,14 +178,14 @@ public class IntList {
      * @return an array containing all of the elements in this list in
      * proper sequence
      */
-    public int[] toArray() {
-        return Arrays.copyOf(ints, size);
+    public long[] toArray() {
+        return Arrays.copyOf(longs, size);
     }
 
 
     private void growIfNeeded(int newCapacity) {
         if (newCapacity != -1) {
-            ints = Arrays.copyOf(ints, newCapacity);
+            longs = Arrays.copyOf(longs, newCapacity);
         }
     }
 
@@ -196,9 +196,9 @@ public class IntList {
      * @return the element at the specified position in this list
      * @throws IndexOutOfBoundsException
      */
-    public int get(int index) {
+    public long get(int index) {
         rangeCheck(index, size);
-        return ints[index];
+        return longs[index];
     }
 
     /**
@@ -210,11 +210,11 @@ public class IntList {
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException
      */
-    public int set(int index, int element) {
+    public long set(int index, long element) {
         rangeCheck(index, size);
 
-        int oldValue = ints[index];
-        ints[index] = element;
+        long oldValue = longs[index];
+        longs[index] = element;
         return oldValue;
     }
 
@@ -224,11 +224,11 @@ public class IntList {
      * @param e element to be appended to this list
      * @return <tt>true</tt> (as specified by Collection#add)
      */
-    public boolean add(int e) {
-        int newCapacity = calculateNewCapacity(ints.length, size + 1);
+    public boolean add(long e) {
+        int newCapacity = calculateNewCapacity(longs.length, size + 1);
         growIfNeeded(newCapacity);
 
-        ints[size++] = e;
+        longs[size++] = e;
         return true;
     }
 
@@ -241,14 +241,14 @@ public class IntList {
      * @param element element to be inserted
      * @throws IndexOutOfBoundsException
      */
-    public void add(int index, int element) {
+    public void add(int index, long element) {
         rangeCheckForAdd(index, size);
 
-        int newCapacity = calculateNewCapacity(ints.length, size + 1);
+        int newCapacity = calculateNewCapacity(longs.length, size + 1);
         growIfNeeded(newCapacity);
 
-        System.arraycopy(ints, index, ints, index + 1, size - index);
-        ints[index] = element;
+        System.arraycopy(longs, index, longs, index + 1, size - index);
+        longs[index] = element;
         size++;
     }
 
@@ -264,11 +264,11 @@ public class IntList {
     public long remove(int index) {
         rangeCheck(index, size);
 
-        long oldValue = ints[index];
+        long oldValue = longs[index];
 
         int numMoved = size - index - 1;
         if (numMoved > 0) {
-            System.arraycopy(ints, index + 1, ints, index, numMoved);
+            System.arraycopy(longs, index + 1, longs, index, numMoved);
         }
         --size;
 
@@ -291,7 +291,7 @@ public class IntList {
     public boolean remove(long o) {
 
         for (int index = 0; index < size; index++) {
-            if (o == ints[index]) {
+            if (o == longs[index]) {
                 fastRemove(index);
                 return true;
             }
@@ -303,7 +303,7 @@ public class IntList {
     private void fastRemove(int index) {
         int numMoved = size - index - 1;
         if (numMoved > 0) {
-            System.arraycopy(ints, index + 1, ints, index, numMoved);
+            System.arraycopy(longs, index + 1, longs, index, numMoved);
         }
         --size;
     }
@@ -313,7 +313,7 @@ public class IntList {
      * be empty after this call returns.
      */
     public void clear() {
-        ints = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+        longs = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
         size = 0;
     }
 
@@ -330,14 +330,14 @@ public class IntList {
      * @return <tt>true</tt> if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(IntList c) {
-        int[] a = c.toArray();
+    public boolean addAll(LongList c) {
+        long[] a = c.toArray();
         int numNew = a.length;
 
-        int newCapacity = calculateNewCapacity(ints.length, size + numNew);
+        int newCapacity = calculateNewCapacity(longs.length, size + numNew);
         growIfNeeded(newCapacity);
 
-        System.arraycopy(a, 0, ints, size, numNew);
+        System.arraycopy(a, 0, longs, size, numNew);
         size += numNew;
         return numNew != 0;
     }
@@ -357,21 +357,21 @@ public class IntList {
      * @throws IndexOutOfBoundsException
      * @throws NullPointerException      if the specified collection is null
      */
-    public boolean addAll(int index, IntList c) {
+    public boolean addAll(int index, LongList c) {
         rangeCheckForAdd(index, size);
 
-        int[] a = c.toArray();
+        long[] a = c.toArray();
         int numNew = a.length;
 
-        int newCapacity = calculateNewCapacity(ints.length, size + numNew);
+        int newCapacity = calculateNewCapacity(longs.length, size + numNew);
         growIfNeeded(newCapacity);
 
         int numMoved = size - index;
         if (numMoved > 0) {
-            System.arraycopy(ints, index, ints, index + numNew, numMoved);
+            System.arraycopy(longs, index, longs, index + numNew, numMoved);
         }
 
-        System.arraycopy(a, 0, ints, index, numNew);
+        System.arraycopy(a, 0, longs, index, numNew);
         size += numNew;
         return numNew != 0;
     }
@@ -392,7 +392,7 @@ public class IntList {
      */
     public void removeRange(int fromIndex, int toIndex) {
         int numMoved = size - toIndex;
-        System.arraycopy(ints, toIndex, ints, fromIndex, numMoved);
+        System.arraycopy(longs, toIndex, longs, fromIndex, numMoved);
 
         size = size - (toIndex - fromIndex);
     }
@@ -403,8 +403,8 @@ public class IntList {
      * list's current size.  An application can use this operation to minimize
      * the storage of an <tt>ArrayList</tt> instance.
      */
-    private int[] trimToSize(int size, int[] elements) {
-        int[] copy = Arrays.copyOf(elements, elements.length);
+    private long[] trimToSize(int size, long[] elements) {
+        long[] copy = Arrays.copyOf(elements, elements.length);
         if (size < elements.length) {
             copy = (size == 0) ? EMPTY_ELEMENT_DATA : Arrays.copyOf(elements, size);
         }
@@ -424,10 +424,10 @@ public class IntList {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        IntList rhs = (IntList) obj;
+        LongList rhs = (LongList) obj;
 
-        int[] thisTrimmed = trimToSize(this.size, this.ints);
-        int[] otherTrimmed = trimToSize(rhs.size, rhs.ints);
+        long[] thisTrimmed = trimToSize(this.size, this.longs);
+        long[] otherTrimmed = trimToSize(rhs.size, rhs.longs);
 
         return new EqualsBuilder()
                 .append(thisTrimmed, otherTrimmed)
@@ -438,7 +438,7 @@ public class IntList {
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(ints)
+                .append(longs)
                 .append(size)
                 .toHashCode();
     }
@@ -446,7 +446,7 @@ public class IntList {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("ints", trimToSize(this.size, ints))
+                .append("longs", trimToSize(this.size, longs))
                 .append("size", size)
                 .toString();
     }

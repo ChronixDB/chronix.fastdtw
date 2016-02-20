@@ -41,7 +41,7 @@ public final class DistanceFunctionFactory {
         switch (function) {
             case EUCLIDEAN:
                 return EUCLIDEAN_DIST_FN;
-            case MANHATTEN:
+            case MANHATTAN:
                 return MANHATTAN_DIST_FN;
             case BINARY:
                 return BINARY_DIST_FN;

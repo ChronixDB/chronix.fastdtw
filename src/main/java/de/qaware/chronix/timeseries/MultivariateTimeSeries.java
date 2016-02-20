@@ -25,7 +25,7 @@ package de.qaware.chronix.timeseries;
 
 
 import de.qaware.chronix.dt.IntList;
-import de.qaware.chronix.timeseries.dt.LongList;
+import de.qaware.chronix.dt.LongList;
 
 import java.util.ArrayList;
 import java.util.List;

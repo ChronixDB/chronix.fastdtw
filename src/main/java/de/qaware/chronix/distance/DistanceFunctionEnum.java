@@ -31,6 +31,6 @@ package de.qaware.chronix.distance;
 public enum DistanceFunctionEnum {
 
     BINARY,
-    MANHATTEN,
+    MANHATTAN,
     EUCLIDEAN
 }

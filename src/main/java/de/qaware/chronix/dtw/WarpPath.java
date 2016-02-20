@@ -33,9 +33,9 @@ import java.util.NoSuchElementException;
  * @author Stan Salvador (stansalvador@hotmail.com)
  * @author f.lautenschlager
  */
-public class WarpPath {
-    private IntList tsIindexes;   // ArrayList of Integer
-    private IntList tsJindexes;   // ArrayList of Integer
+public final class WarpPath {
+    private final IntList tsIindexes;   // ArrayList of Integer
+    private final IntList tsJindexes;   // ArrayList of Integer
 
     public WarpPath() {
         tsIindexes = new IntList();
@@ -57,7 +57,6 @@ public class WarpPath {
         return tsIindexes.get(tsIindexes.size() - 1);
     }
 
-
     public int minJ() {
         return tsJindexes.get(tsJindexes.size() - 1);
     }
@@ -65,7 +64,6 @@ public class WarpPath {
     public int maxI() {
         return tsIindexes.get(0);
     }
-
 
     public int maxJ() {
         return tsJindexes.get(0);
