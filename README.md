@@ -19,7 +19,7 @@ The following results show the benefits.
 - Original [Results](https://github.com/ChronixDB/chronix.fastdtw/blob/master/results/source-runtime.csv)
 
 ### Comparison
-Times are in milliseconds.
+Times are seconds.
 
 | Search Radius|Original|Chronix|
 | ------------- |:-------------:| -----:|
