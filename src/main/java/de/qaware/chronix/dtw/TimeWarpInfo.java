@@ -49,7 +49,7 @@ public class TimeWarpInfo {
     }
 
     /**
-     * @return the distance bewteen
+     * @return the distance between the two time series
      */
     public double getDistance() {
         return distance;
