@@ -261,7 +261,7 @@ public class IntList {
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException
      */
-    public long remove(int index) {
+    public long removeAt(int index) {
         rangeCheck(index, size);
 
         long oldValue = ints[index];
@@ -288,7 +288,7 @@ public class IntList {
      * @param o element to be removed from this list, if present
      * @return <tt>true</tt> if this list contained the specified element
      */
-    public boolean remove(long o) {
+    public boolean remove(int o) {
 
         for (int index = 0; index < size; index++) {
             if (o == ints[index]) {

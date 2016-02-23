@@ -297,7 +297,7 @@ abstract public class SearchWindow {
         private final int expectedModCount;
 
         private SearchWindowIterator(SearchWindow w) {
-            // Intiialize values
+            // Initialize values
             window = w;
             hasMoreElements = window.size() > 0;
             currentI = window.minI();

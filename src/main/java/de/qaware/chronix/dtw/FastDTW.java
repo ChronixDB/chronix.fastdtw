@@ -34,33 +34,14 @@ import de.qaware.chronix.timeseries.PAA;
  */
 public final class FastDTW {
 
-    final static int DEFAULT_SEARCH_RADIUS = 1;
-
     private FastDTW() {
         //avoid instances
     }
 
-    public static double getWarpDistBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, final DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn).getDistance();
-    }
-
-
-    public static double getWarpDistBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, searchRadius, distFn).getDistance();
-    }
-
-
-    public static WarpPath getWarpPathBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, final DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn).getPath();
-    }
-
-
-    public static WarpPath getWarpPathBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, searchRadius, distFn).getPath();
-    }
-
-
     public static TimeWarpInfo getWarpInfoBetween(final MultivariateTimeSeries tsI, final MultivariateTimeSeries tsJ, int searchRadius, final DistanceFunction distFn) {
+        if (tsI.size() == 0 || tsJ.size() == 0) {
+            return new TimeWarpInfo(0, new WarpPath(0), tsI.size(), tsJ.size());
+        }
         return fastDTW(tsI, tsJ, searchRadius, distFn);
     }
 
@@ -80,7 +61,8 @@ public final class FastDTW {
 
             // Determine the search window that constrains the area of the cost matrix that will be evaluated based on
             //    the warp path found at the previous resolution (smaller time series).
-            final SearchWindow window = new ExpandedResWindow(tsI, tsJ, shrunkI, shrunkJ, FastDTW.getWarpPathBetween(shrunkI, shrunkJ, searchRadius, distFn), searchRadius);
+            final WarpPath warpPath = getWarpInfoBetween(shrunkI, shrunkJ, searchRadius, distFn).getPath();
+            final SearchWindow window = new ExpandedResWindow(tsI, tsJ, shrunkI, shrunkJ, warpPath, searchRadius);
 
             // Find the optimal warp path through this search window constraint.
             return DTW.getWarpInfoBetween(tsI, tsJ, window, distFn);

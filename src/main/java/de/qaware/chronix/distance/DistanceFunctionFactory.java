@@ -37,6 +37,12 @@ public final class DistanceFunctionFactory {
         //Avoid instances
     }
 
+    /**
+     * Method to get the implementation of the given distance function
+     *
+     * @param function the distance function
+     * @return the implementation of the distance function
+     */
     public static DistanceFunction getDistanceFunction(DistanceFunctionEnum function) {
         switch (function) {
             case EUCLIDEAN:

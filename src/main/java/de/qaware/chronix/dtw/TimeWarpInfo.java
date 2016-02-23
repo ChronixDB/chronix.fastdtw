@@ -23,6 +23,10 @@
  */
 package de.qaware.chronix.dtw;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * @author Stan Salvador (stansalvador@hotmail.com)
  * @author f.lautenschlager
@@ -30,25 +34,84 @@ package de.qaware.chronix.dtw;
 public class TimeWarpInfo {
     private final double distance;
     private final WarpPath path;
+    private final int base;
 
-
-    public TimeWarpInfo(double dist, WarpPath wp) {
+    /**
+     * @param dist
+     * @param wp
+     * @param sizeI
+     * @param sizeJ
+     */
+    public TimeWarpInfo(double dist, WarpPath wp, int sizeI, int sizeJ) {
         distance = dist;
         path = wp;
+        base = sizeI + sizeJ;
     }
 
+    /**
+     * @return the distance bewteen
+     */
     public double getDistance() {
         return distance;
     }
 
+    /**
+     * Normalizes the distance based on the length of the time series.
+     * The returned value is the average per-step distance.
+     * A value of 0.0 indicates that the time series are equals.
+     *
+     * @return the normalized distance.
+     */
+    public double getNormalizedDistance() {
+        return (distance / base);
 
+    }
+
+    /**
+     * The resulting warp path
+     *
+     * @return the warp path
+     */
     public WarpPath getPath() {
         return path;
     }
 
 
-    public String toString() {
-        return "(Warp Distance=" + distance + ", Warp Path=" + path + ")";
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        TimeWarpInfo rhs = (TimeWarpInfo) obj;
+        return new EqualsBuilder()
+                .append(this.distance, rhs.distance)
+                .append(this.path, rhs.path)
+                .append(this.base, rhs.base)
+                .isEquals();
     }
 
-}  // end class TimeWarpInfo
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(distance)
+                .append(path)
+                .append(base)
+                .toHashCode();
+    }
+
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("distance", distance)
+                .append("path", path)
+                .append("base", base)
+                .toString();
+    }
+}

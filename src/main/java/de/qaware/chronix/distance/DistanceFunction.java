@@ -28,5 +28,12 @@ package de.qaware.chronix.distance;
  * @author f.lautenschlager
  */
 public interface DistanceFunction {
+    /**
+     * Calculates the distance between the two vectors
+     *
+     * @param vector1 - the first values
+     * @param vector2 the second values
+     * @return the value of the concrete distance function
+     */
     double calcDistance(double[] vector1, double[] vector2);
 }

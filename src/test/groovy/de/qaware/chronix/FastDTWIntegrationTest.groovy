@@ -25,22 +25,40 @@ package de.qaware.chronix
 
 import de.qaware.chronix.distance.DistanceFunctionEnum
 import de.qaware.chronix.distance.DistanceFunctionFactory
+import de.qaware.chronix.dtw.DTW
 import de.qaware.chronix.dtw.FastDTW
 import de.qaware.chronix.timeseries.MultivariateTimeSeries
 import spock.lang.Specification
 import spock.lang.Unroll
+
 /**
  * Unit test to the FastDTW implementation
  * @author f.lautenschlager
  */
 class FastDTWIntegrationTest extends Specification {
 
+    public static void main(String[] args) {
+        def distFn = DistanceFunctionFactory.getDistanceFunction(DistanceFunctionEnum.EUCLIDEAN)
+        def tsI = new MultivariateTimeSeries(1)
+        def tsJ = new MultivariateTimeSeries(1)
+
+        fillTimeSeries("CPU-Load.csv", tsI, tsJ)
+
+        def start = System.currentTimeMillis();
+        def info = FastDTW.getWarpInfoBetween(tsI, tsJ, 1, distFn)
+        def end = System.currentTimeMillis();
+        println "FastDTW for search radius: 1 took: ${end - start}"
+
+    }
+
     @Unroll
     def "test warp path of two time series: search radius: #searchRadius, faster than: #maxTime ms."() {
         given:
         def distFn = DistanceFunctionFactory.getDistanceFunction(DistanceFunctionEnum.EUCLIDEAN)
-        def tsI = fillTimeSeries("CPU-Load.csv", 1)
-        def tsJ = fillTimeSeries("CPU-Load.csv", 2)
+        def tsI = new MultivariateTimeSeries(1)
+        def tsJ = new MultivariateTimeSeries(1)
+
+        fillTimeSeries("CPU-Load.csv", tsI, tsJ)
 
         when:
         def start = System.currentTimeMillis();
@@ -50,38 +68,41 @@ class FastDTWIntegrationTest extends Specification {
         then:
         info.getDistance() == distance
         info.getPath().size()
-        //(end - start) < maxTime
+        info.getNormalizedDistance() == normalizedDistance
+        (end - start) < maxTime
 
         println "FastDTW for search radius: $searchRadius took: ${end - start}"
 
         where:
         searchRadius << [1, 5, 10, 15, 20, 25, 30]
         //That are the result of the default implementation
-        distance << [79106.02999997968d, 69642.54999996412d, 62786.65999995535d, 61584.96999994975d, 61644.99999994942d, 60684.239999951926d, 59660.479999950316d]
+        distance << [79057.83999997916d, 67460.60999996655d, 63196.48999995647d, 61447.68999994993d, 61721.41999994916d, 60734.809999950994d, 59639.289999948676d]
+        normalizedDistance << [0.17885337061616094d, 0.15261683701856124d, 0.14297007415843518d, 0.13901374579764522d, 0.13963300801298828d, 0.13740098998690348d, 0.13492258373930194d]
         maxTime << [2000, 2000, 2000, 3000, 3000, 3000, 4000]
     }
 
 
-    static MultivariateTimeSeries fillTimeSeries(String filePath, int column) {
-        def timeSeries = new MultivariateTimeSeries(1)
+    static void fillTimeSeries(String filePath, def tsI, def tsJ) {
         def inputStream = FastDTWIntegrationTest.getResourceAsStream("/$filePath")
         def index = 0;
         def firstLine = true;
         inputStream.eachLine() {
             if (!firstLine) {
                 def columns = it.split(",")
-                if (columns.length == 2 && column == 1) {
-                    timeSeries.add(index, [columns[column] as double] as double[])
-                    index++;
-                } else if (columns.length == 3 && column == 2) {
-                    timeSeries.add(index, [columns[column] as double] as double[])
-                    index++;
+                if (columns.length == 3) {
+                    if (!columns[1].isEmpty()) {
+                        tsI.add(index, [columns[1] as double] as double[])
+                    }
+                    tsJ.add(index, [columns[2] as double] as double[])
+                } else if (columns.length == 2) {
+                    tsI.add(index, [columns[1] as double] as double[])
                 }
+
+                index++;
             } else {
                 firstLine = false
             }
         }
-        return timeSeries
     }
 
 }
