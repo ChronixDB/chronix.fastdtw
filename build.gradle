@@ -47,7 +47,7 @@ allprojects {
         }
     }
 
-    version '0.2'
+    version '0.3'
 
     group 'de.qaware.chronix'
 
@@ -66,10 +66,6 @@ allprojects {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     dependencies {
-        //Guava
-        compile 'com.google.guava:guava:18.0'
-        //Groovy for the win
-        compile 'org.codehaus.groovy:groovy-all:2.4.5'
         compile 'org.apache.commons:commons-lang3:3.4'
 
         //Logging
@@ -84,6 +80,8 @@ allprojects {
         testCompile 'junit:junit:4.12'
         testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
         testCompile 'cglib:cglib-nodep:3.1'
+        //Groovy for the win
+        testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
 
     }
 
