@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 QAware GmbH
+ * Copyright (c) 2016 Stan Salvador (stansalvador@hotmail.com), Philip Chan (pkc@cs.fit.edu), QAware GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,8 @@ package de.qaware.chronix.dtw;
 
 import de.qaware.chronix.dt.IntList;
 import de.qaware.chronix.matrix.ColMajorCell;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.NoSuchElementException;
 
@@ -34,13 +36,8 @@ import java.util.NoSuchElementException;
  * @author f.lautenschlager
  */
 public final class WarpPath {
-    private final IntList tsIindexes;   // ArrayList of Integer
-    private final IntList tsJindexes;   // ArrayList of Integer
-
-    public WarpPath() {
-        tsIindexes = new IntList();
-        tsJindexes = new IntList();
-    }
+    private final IntList tsIindexes;
+    private final IntList tsJindexes;
 
 
     public WarpPath(int initialCapacity) {
@@ -48,81 +45,57 @@ public final class WarpPath {
         tsJindexes = new IntList(initialCapacity);
     }
 
-
+    /**
+     * @return the size of the warp path
+     */
     public int size() {
         return tsIindexes.size();
     }
 
+    /**
+     * @return the min i index (last element), -1 if empty
+     */
     public int minI() {
-        return tsIindexes.get(tsIindexes.size() - 1);
+        if (tsIindexes.size() > 0) {
+            return tsIindexes.get(tsIindexes.size() - 1);
+        }
+        return -1;
     }
 
+    /**
+     * @return the min j index
+     */
     public int minJ() {
-        return tsJindexes.get(tsJindexes.size() - 1);
+        if (tsJindexes.size() > 0) {
+            return tsJindexes.get(tsJindexes.size() - 1);
+        }
+        return -1;
     }
 
+    /**
+     * @return max i index (first element), -1 if empty
+     */
     public int maxI() {
-        return tsIindexes.get(0);
+        if (tsIindexes.size() > 0) {
+            return tsIindexes.get(0);
+        }
+        return -1;
     }
 
+    /**
+     * @return max j index (first element), -1 if empty
+     */
     public int maxJ() {
-        return tsJindexes.get(0);
+        if (tsJindexes.size() > 0) {
+            return tsJindexes.get(0);
+        }
+        return -1;
     }
 
-    public void addFirst(int i, int j) {
+    public void add(int i, int j) {
         tsIindexes.add(i);
         tsJindexes.add(j);
     }
-
-    public void addLast(int i, int j) {
-        tsIindexes.add(0, i);
-        tsJindexes.add(0, j);
-    }
-
-
-    public IntList getMatchingIndexesForI(int i) {
-        int index = tsIindexes.indexOf(i);
-        if (index < 0)
-            throw new InternalError("ERROR:  index '" + i + " is not in the " + "warp path.");
-        final IntList matchingJs = new IntList(tsIindexes.size());
-        while (index < tsIindexes.size() && tsIindexes.get(index) == i)
-            matchingJs.add(tsJindexes.get(index++));
-
-        return matchingJs;
-    }
-
-
-    public IntList getMatchingIndexesForJ(int j) {
-        int index = tsJindexes.indexOf(j);
-        if (index < 0)
-            throw new InternalError("ERROR:  index '" + j + " is not in the " + "warp path.");
-        final IntList matchingIs = new IntList(tsJindexes.size());
-        while (index < tsJindexes.size() && tsJindexes.get(index) == j)
-            matchingIs.add(tsIindexes.get(index++));
-
-        return matchingIs;
-    }
-
-
-    // Create a new WarpPath that is the same as THIS WarpPath, but J is the reference template, rather than I.
-    public WarpPath invertedCopy() {
-        final WarpPath newWarpPath = new WarpPath();
-        for (int x = 0; x < tsIindexes.size(); x++)
-            newWarpPath.addLast(tsJindexes.get(x), tsIindexes.get(x));
-
-        return newWarpPath;
-    }
-
-
-    // Swap I and J so that the warp path now indicates that J is the template rather than I.
-    public void invert() {
-        for (int x = 0; x < tsIindexes.size(); x++) {
-            final int temp = tsIindexes.get(x);
-            tsIindexes.set(x, tsJindexes.get(x));
-            tsJindexes.set(x, temp);
-        }
-    }
-
 
     public ColMajorCell get(int index) {
         if ((index > this.size()) || (index < 0))
@@ -132,6 +105,7 @@ public final class WarpPath {
     }
 
 
+    @Override
     public String toString() {
         StringBuilder outStr = new StringBuilder("[");
         for (int x = 0; x < tsIindexes.size(); x++) {
@@ -145,6 +119,7 @@ public final class WarpPath {
     }
 
 
+    @Override
     public boolean equals(Object obj) {
         if ((obj instanceof WarpPath))  // trivial false test
         {
@@ -163,9 +138,11 @@ public final class WarpPath {
             return false;
     }
 
-
+    @Override
     public int hashCode() {
-        return tsIindexes.hashCode() * tsJindexes.hashCode();
+        return new HashCodeBuilder()
+                .append(tsIindexes)
+                .append(tsJindexes)
+                .toHashCode();
     }
-
 }

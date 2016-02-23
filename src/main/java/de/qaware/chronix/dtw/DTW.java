@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 QAware GmbH
+ * Copyright (c) 2016 Stan Salvador (stansalvador@hotmail.com), Philip Chan (pkc@cs.fit.edu), QAware GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -105,7 +105,7 @@ public final class DTW {
         final WarpPath minCostPath = new WarpPath(maxI + maxJ - 1);
         int i = maxI;
         int j = maxJ;
-        minCostPath.addFirst(i, j);
+        minCostPath.add(i, j);
         while ((i > 0) || (j > 0)) {
             // Find the costs of moving in all three possible directions (left,
             //    down, and diagonal (down and left at the same time).
@@ -143,7 +143,7 @@ public final class DTW {
                 i--;
 
             // Add the current step to the warp path.
-            minCostPath.addFirst(i, j);
+            minCostPath.add(i, j);
         }
 
         return new TimeWarpInfo(minimumCost, minCostPath, tsI.size(), tsJ.size());
@@ -209,7 +209,7 @@ public final class DTW {
         final WarpPath minCostPath = new WarpPath(maxI + maxJ - 1);
         int i = maxI;
         int j = maxJ;
-        minCostPath.addFirst(i, j);
+        minCostPath.add(i, j);
         while ((i > 0) || (j > 0)) {
             // Find the costs of moving in all three possible directions (left,
             //    down, and diagonal (down and left at the same time).
@@ -247,7 +247,7 @@ public final class DTW {
                 i--;
 
             // Add the current step to the warp path.
-            minCostPath.addFirst(i, j);
+            minCostPath.add(i, j);
         }  // end while loop
 
         return new TimeWarpInfo(minimumCost, minCostPath, tsI.size(), tsJ.size());
