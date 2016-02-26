@@ -47,7 +47,7 @@ allprojects {
         }
     }
 
-    version '0.3'
+    version '0.4'
 
     group 'de.qaware.chronix'
 
